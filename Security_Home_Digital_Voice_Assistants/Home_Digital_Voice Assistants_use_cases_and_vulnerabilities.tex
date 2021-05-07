@@ -61,8 +61,16 @@ However, these undeniable advances should not obscure the questions that voice a
 %%%%%%%%%%%
 
 \section{DIGITAL VOICE ASSISTANCES}
-\subsection{What is Voice Assistance}
-\subsection{When is Audio Streamed to the Cloud?}
+\subsection{What is Voice Assistance?}
+Over the last years a very significant progress in the development of digital voice assistance is made with various factors contributing to this: improved methods, a significant increase in computing capacity and greater volumes of data available. This is enabling voice assistants in millions of homes today. In this connection a new report from Juniper Research has found that consumers will interact with voice assistants on over 8.4 billion devices by 2024; overtaking the world's population and growing 113\% compared to the 4.2 billion devices expected to be in use by year end 2020 \footnote{https://www.juniperresearch.com/press/number-of-voice-assistant-devices-in-use}. 
+
+Even if someone as an author of this paper is a non-user whatever the reason is, like privacy concerns or confidence that the device is useless, the understanding of what is digital voice assistance is and how it works is important regarding the rising amount of devices. It could be easy imagined that a best friend who oft invites to have a dinner at his place has bought a digital voice assistance or got it as a present on Christmas and even forgot to tell that there is a constantly listening device in their home. 
+
+What is actually a digital voice assistance? A voice assistant is a complex system consisting of several modules to perform different tasks. From a hardware side there are embodied speaker with microphones and some computing capabilities (more or less developed depending on the case). As smart speaker is relatively simple by design and small be size most of the computing and artificial intelligence processing happens in the cloud and not in the device itself \cite{c2}. Because data has to be sent back and forth to centralized data centers a user has to make a request first through the voice-activated device, and then, the voice request gets streamed through the cloud, and here voice gets converted into text \cite{c2}. From a software side there are many modern algorithms used on the backend for processing the user request and implementing  human-machine interaction as such and which includes built-in modules for automatic speech recognition, natural language comprehension and generation,  dialogue and speech synthesis. As was mentioned above in many cases it is done remotely using cloud-based architecture.
+After the request processing on the backend a text response will be generated. Finally, the text response goes through the cloud and gets transformed into voice using speaker of the physical digital device and streamed back to the user. After that the voice assistant returns to standby and is constantly listening again to hear a specific wake word uttered by a user. 
+
+
+\subsection{How does Voice Assistance work?}
 \subsection{Third party features}
 \subsubsection{Skills and Actions}
 
@@ -141,11 +149,7 @@ THIS WAS SOURCE 1 \cite{c1}\\\\
 %%===================
 
 SOURCE 2 \cite{c2}
-In the last years, the heavy use of smartphones led to the appearance of voice assistants such as Apple?s Siri, Google?s Assistant, Microsoft?s Cortana and Amazon?s Alexa. Voice as-sistants use technologies like voice recognition, speech synthesis, and Natural Language Processing (NLP) to provide services to the users. Cloud platforms are now enabling voice assistants in millions of homes. Voice as-sistants rely on a cloud-based architecture, since data has to be sent back and forth to centralized data centers. A smart speaker is relatively simple by design, which means most of the computing and artificial intelligence processing happens in the cloud and not in the device itself.
-
-The basic idea is that the user makes a request through the voice-activated device, and then, the voice request gets streamed through the cloud, and here voice gets converted into text. Then, the text request goes to the backend and after processing, the backend replies with a text response. Finally, the text response goes through the cloud and gets transformed into voice, which will be streamed back to the user. Most smart speakers come without a screen although there are smart speak-ers with screens such as the Amazon Echo Show and Echo Spot, the Facebook Portal, and the Google Home Hub. 
-
-%%% 
+CHILDREN
 
 Interesting findings came from Sciuto et al. (2018), where authors explored how households incorporate conversational agents into their lives. Specifically, authors ana-lyzed the logs of 75 Alexa users, for a total of 278,654 voice commands. Participants who have owned an Alexa device for at least six months, answered survey questions related to their household use of Alexa. Of the 75 participants, 26 reported having children although data from the log files did not provide any insights into which household member gave each command. Parents that were interviewed, positively recalled their children successfully interacting with Alexa even before interacting with smartphones and other technology devices.
 
@@ -198,7 +202,7 @@ Most interviewees also noted that they used VAs as Alarms. The terms used in VA 
 This is a source \cite{c8} Deployed within a piece of equipment (smartphone, smart speaker, vehicle), the voice assistant is on standby. In concrete terms, it is constantly listening, while possibly concentrating its listening on certain areas of space, for example to try to neutralise sound sources such as a television set (using the spatial filtering techniques such as beam forming). However, it does not store the audio data and does not perform any operations until a specific wake word has been heard. For this purpose, a buffer of a few seconds is used. \cite{c8} When the user utters the wake word, the assistant "wakes  up".  A  listening  channel  opens  and  the  audio  content is streamed. In many cases, if the processing is done remotely, a second check of the wake word pronunciation is per-formed  on  the  server  side  in  order  to  limit  unwanted  triggering. The user shall state his/her request, which is forwarded to the processing entities.  Using natural language processing (NLP) technology, speech is interpreted. Automatic speech recognition used to involve three distinct steps to: 1) determine which phonemes had been pronounced using an acoustic model; 2) determine which words were pronounced using a phonetic dictionary; 3) transcribe the sequence of words (sentence) most likely to have been spoken using a language model. Today, with the progress made possible by deep learning (a machine learning technique), a large number of systems offer automatic transcription of speech from end to end. 
 
 
-A new report from Juniper Research has found that consumers will interact with voice assistants on over 8.4 billion devices by 2024; overtaking the world?s population and growing 113\% compared to the 4.2 billion devices expected to be in use by year end 2020 \footnote{https://www.juniperresearch.com/press/number-of-voice-assistant-devices-in-use}.
+
 
 \section{PROCEDURE FOR PAPER SUBMISSION}
 
