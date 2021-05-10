@@ -23,6 +23,8 @@
 %\usepackage{amsmath} % assumes amsmath package installed
 %\usepackage{amssymb}  % assumes amsmath package installed
 \usepackage{url}
+\usepackage{graphicx}
+\usepackage{hyperref}
 
 
 
@@ -67,17 +69,37 @@ Over the last years a very significant progress in the development of digital vo
 Even if someone as an author of this paper is a non-user whatever the reason is, like privacy concerns or confidence that the device is useless, the understanding of what is digital voice assistance is and how it works is important regarding the rising amount of devices. It could be easy imagined that a best friend who oft invites to have a dinner at his place has bought a digital voice assistance or got it as a present on Christmas and even forgot to tell that there is a constantly listening device in their home. 
 
 What is actually a digital voice assistance? A voice assistant is a complex system consisting of several modules to perform different tasks. From a hardware side there are embodied speaker with microphones and some computing capabilities (more or less developed depending on the case). As smart speaker is relatively simple by design and small be size most of the computing and artificial intelligence processing happens in the cloud and not in the device itself \cite{c2}. Because data has to be sent back and forth to centralized data centers a user has to make a request first through the voice-activated device, and then, the voice request gets streamed through the cloud, and here voice gets converted into text \cite{c2}. From a software side there are many modern algorithms used on the backend for processing the user request and implementing  human-machine interaction as such and which includes built-in modules for automatic speech recognition, natural language comprehension and generation,  dialogue and speech synthesis. As was mentioned above in many cases it is done remotely using cloud-based architecture.
-After the request processing on the backend a text response will be generated. Finally, the text response goes through the cloud and gets transformed into voice using speaker of the physical digital device and streamed back to the user. After that the voice assistant returns to standby and is constantly listening again to hear a specific wake word uttered by a user. 
+After the request processing on the backend a text response will be generated. Finally, the text response goes through the cloud and gets transformed into voice using speaker of the physical digital device and streamed back to the user. After that the voice assistant returns to standby and is constantly listening again to hear a specific wake word uttered by a user (``Alexa'' is the default in the case of the Echo Dot, and ``OK Google'' in the case of Google Home) with no need for activation by pressing buttons or doing anything else. The word or phrase is detected locally on the device, and only once it is matched is a recording made and sent back to the Amazon or Google servers, although a tiny fraction of sound from just before when the matched keyword is said is also sent back \cite{c12}. The text of the response that was sent to a user is stored by the voice assistant system so that users of personal devices can review past answers using their application.
 
+\subsection{Audio processing in the cloud}
+The main power of digital voice assistance is that after being activated through the trigger they can access all the intelligence and computational power in the backend. Device uses on-device technology to detect when the wake word is spoken and then turn on the audio stream to the cloud with a backend. While the microphone is active and the VA's system is processing the request, the user is notified that streaming is occurring by a visual signal (such as a light), an audible signal, or both. When the interaction is complete, no audio is processed by the device and sent to the VA's cloud. 
 
-\subsection{How does Voice Assistance work?}
+An appropriate response to the user's request is identified and, if necessary, remote resources are used. They can be publicly accessible knowledge database (online encyclopaedia, etc.) or resources accessed by authentication (bank account, music application, customer account for online purchase, etc.) \cite{c8}.
+
+The fact that a device is constantly listening with no need for activation by pressing buttons or doing anything else raises privacy concerns. All the popular devices have a hardware button that allows you to mute the microphone. However, this does mean that when you want to use the voice assistant again you will have to physically unmute the device, which somewhat defeats the purpose of voice activation \cite{c12}. Manufacturers state that before the trigger was said no audio processing and sending to the cloud should be happened. But some usage patterns open the back door for accidental recordings as will be discussed in more detail in the chapter \hyperref[sec:security_concerns]{Security and Privacy Concerns}. For example, if user says, ``Alexa, set the timer!'' Alexa will respond with ``Timer for how long?'' and will open the audio stream to wait for user's response. If a user assumes that the timer will be set to some default value or last settings will be used, they could not proceed with a response that device can understand and a device will continue to listen and record. After 6 seconds for Alexa and one additional reprompt from Google and follow-up 8-second waiting, the running request will be forcefully terminated by the device \cite{c1}. 
+
+After request phrases are processed they will be stored in the cloud to respond to the user's requests on subsequent repeated calls to improve the user's experience so a system can better understand user's requests. All user's request made to their device will be used by a company to train a speech recognition and natural language understanding  using machine learning algorithms. Thus the backend system of digital voice assistance is a non-disclosure bunch a self-learning algorithms and a training process with real world requests from a diverse range of customers is necessary for a system to respond properly to the variation in users' speech patterns, dialects, accents, and vocabulary and the acoustic environments where customers use their devices. Moreover it is possible for a user to review their records and even correct them thus such training relies in part on supervised machine learning where humans review an extremely small sample of requests to help to understand the correct interpretation of a request and provide the appropriate response in the future. 
+
+Amazon and Google give users multiple ways to manage their data. As stated above, audio recordings are used to improve system services. For personal devices, customers can review voice recordings associated with their account and delete those voice recordings one by one or all at once by visiting their settings page. Users were enabled to review and delete prior voice interactions with the device if they feel uncomfortable or not want companies to keep particular voice recordings on their servers \cite{c5}. However in a survey by Malkin et al. (2019) \cite{c4} it was found that 56\% of active users did not know that their recordings were being permanently stored and that they could review them. 
+
 \subsection{Third party features}
-\subsubsection{Skills and Actions}
-
+Amazon and Google are two major players in the market of smart speakers with voice-controlled personal assistant capabilities. However the functionality of devices is not limited with those tasks that was developed and written on the device when it was sold to a user. A modern smartphones have a huge market of applications named Google Play Store for an Android phone and App Store for an Apple Iphone. The main goal is that using such markets user must not looking for a new applications somewhere and download a software that potentially has a virus or intended to damage their hardware or brings privacy risks. Amazon and Google has invented Skills and Actions that can be installed from a safe place that meets hight company's standards for privacy, security, and content. Skills are essentially third-party apps offering a variety of services the voice assistant itself does not provide. Examples include Amex, Hands- Free Calling, Nest Thermostat and Walmart \cite{c1}. These skills can be conveniently developed with the supports from Amazon and Google, using Alexa Skills Kit and Actions on Google. Indeed, in survey by Nan Z., Xianghang M et al. \cite{c1} it was found that up to November 2017, Alexa already has 23,758 skills and Google Assistant has 1,001. The total number of Amazon Alexa skills continues to grow at a steady pace in selected countries. As of January 2021, the skill count for Amazon Alexa has grown to 80,111 in the United States \footnote{https://www.statista.com/statistics/917900/selected-countries-amazon-alexa-skill-count}. The growing amount of third party features easy to see on the figure \ref{skills} below. Google proposes lower amount of third party features, thus on January 2019, there were 4,253 official Google Actions in the U.S. \footnote{https://voicebot.ai/2019/02/15/google-assistant-actions-total-4253-in-january-2019-up-2-5x-in-past-year-but-7-5-the-total-number-alexa-skills-in-u-s/}. Both companies state that customer's personal information (e.g. name, address) are not released to the 3rd-party unless specifically requested to be shared by the customer.
+\begin{figure}[thpb]
+	\centering
+	\includegraphics[scale=0.35]{img/skills.png}
+	\caption{Total number of Amazon Alexa skills in selected countries as of January 2021. Source www.statista.com/statistics/917900/selected-countries-amazon-alexa-skill-count/} 
+	\label{skills}
+\end{figure}
 
 %%%%%%%%%%%
 
 \section{USE CASES}
+\begin{figure}[thpb]
+	\centering
+	\includegraphics[scale=0.45]{img/amount.png}
+	\caption{How are voice assistant-enabled speakers used. Source CSA-Hadopi report, users of smart speakers over the 30 days leading up to the survey, 287 individuals. L'impact de la voix sur l?offre et les usages culturels et médias, may 2019. https://www.csa.fr} 
+	\label{usecases}
+\end{figure}
 \subsection{Usage by children}
 \subsection{title}
 
@@ -87,26 +109,25 @@ After the request processing on the backend a text response will be generated. F
 
 \section{VULNERABILITIES}
 \subsection{Security and Privacy Concerns}
+\label{sec:security_concerns}
+
+
 \subsection{Accidental Recordings}
 \subsection{Voice-based remote attacks}
 \subsubsection{Voice squatting attack (VSA)}
 \subsubsection{Voice Masquerading Attack (VMA)}
 
-%%%
-\section{CONCLUSIONS}
-
-A conclusion section is not required. Although a conclusion may review the main points of the paper, do not replicate the abstract as the conclusion. 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%
 \section{COPY AND PASTE CORE IDEAS}
 \subsection{About}
-\textbf{VPA on IoT devices}. Amazon and Google are two major players in the market of smart speakers with voice-controlled personal assistant capabilities. Since the debut of the first Amazon Echo in 2015, Amazon has now taken 76\% of the U.S. market with an estimate of 15-million devices sold in the U.S. alone in 2017. A unique property of these four devices is that they all forgo conventional I/O interfaces, such as the touchscreen, and also have fewer buttons (to adjust volume or mute), which serves to offer the user a hands-free experience. In another word, one is supposed to command the device mostly by speaking to it. For this purpose, the device is equipped with a microphone circular array designed for 360-degree audio pickup and other technologies like beamforming that enable far-field voice recognition.
+	\textbf{VPA on IoT devices}.  	
 
-Behind these smart devices is a virtual personal assistant, called Alexa for Amazon and Google Assistant for Google, engages users through a two-way conversation. Unlike those serving a smartphone (Siri, for example) that can be activated by a button push, the VPAs for these IoT devices are started with a wake-word like ``Alexa'' or ``Hey Google''. These assistants have a range of capabilities, from weather report, timer setting, to-do list maintenance to voice shopping, hands-free messaging and calling. The user can manage these capabilities through a companion app running on her smartphone.
+These assistants have a range of capabilities, from weather report, timer setting, to-do list maintenance to voice shopping, hands-free messaging and calling. The user can manage these capabilities through a companion app running on her smartphone.
 
 \subsection{Skills and actions}
-Both Amazon and Google enrich the VPAs' capabilities by introducing voice assistant function called skill by Amazon or action by Google. Skills are essentially third-party apps, like those running on smartphones, offering a variety of services the VPA itself does not provide. Examples include Amex, Hands- Free Calling, Nest Thermostat and Walmart. These skills can be conveniently developed with the supports from Amazon and Google, using Alexa Skills Kit [32] and Actions on Google. Indeed, we found that up to November 2017, Alexa already has 23,758 skills and Google Assistant has 1,001. HOW MANY DO WE HAVE NOW?!
+
 
 Both Amazon Alexa and Google Assistant run a skill market that can be accessed from their companion app on smartphones or web browser for users to discover new skills.
 
@@ -165,6 +186,11 @@ Children aged 5 to 6 and their parents? interactions with a smart speaker were a
 
 Security and Privacy Concerns \cite{c2}: 
 
+
+%%
+
+%%
+
 Privacy is also considered by Hoy (2018) since anyone with access to a voice-activated device can ask it questions, gather information about the accounts and services associated with the device, and ask it to perform tasks. As stated by Horn (2018), since Voice Assistants and Smart Speakers can distinct children?s voices, their specific learning needs are certain to raise questions with the Children?s Online Privacy Protection Act (COPPA) and the Family Educational Rights and Privacy Act (FERPA).
 
 In a survey by Malkin et al. (2019) \cite{c4} sample group was approximately gender-balanced,with 44.0\% self-identifying as female, and the median reported age was 34. Households of 2 or more accounted for 83.6\% of all participants, with a median household size of 3. Regarding 116 smart speaker owners? beliefs, attitudes, and concerns about the recordings that are made and shared by their devices (Amazon and Google), it was found that 56\% of them did not know that their recordings were being permanently stored and that they could review them. It was observed, that while participants did not consider their own recordings important or sensitive, they were more protective of others? recordings, such as children and guests, and were strongly opposed to the use of their data by third parties. Only 3\% of the participants review their recordings and deleted them. Additionally, only 5\% of the participants used the mute button on their device while only 4\% unplugged their device in order to stop listening. The survey concludes that privacy controls are underutilized\cite{c2}
@@ -200,25 +226,6 @@ Most interviewees also noted that they used VAs as Alarms. The terms used in VA 
 
 %%%
 This is a source \cite{c8} Deployed within a piece of equipment (smartphone, smart speaker, vehicle), the voice assistant is on standby. In concrete terms, it is constantly listening, while possibly concentrating its listening on certain areas of space, for example to try to neutralise sound sources such as a television set (using the spatial filtering techniques such as beam forming). However, it does not store the audio data and does not perform any operations until a specific wake word has been heard. For this purpose, a buffer of a few seconds is used. \cite{c8} When the user utters the wake word, the assistant "wakes  up".  A  listening  channel  opens  and  the  audio  content is streamed. In many cases, if the processing is done remotely, a second check of the wake word pronunciation is per-formed  on  the  server  side  in  order  to  limit  unwanted  triggering. The user shall state his/her request, which is forwarded to the processing entities.  Using natural language processing (NLP) technology, speech is interpreted. Automatic speech recognition used to involve three distinct steps to: 1) determine which phonemes had been pronounced using an acoustic model; 2) determine which words were pronounced using a phonetic dictionary; 3) transcribe the sequence of words (sentence) most likely to have been spoken using a language model. Today, with the progress made possible by deep learning (a machine learning technique), a large number of systems offer automatic transcription of speech from end to end. 
-
-
-
-
-\section{PROCEDURE FOR PAPER SUBMISSION}
-
-\subsection{Figures and Tables}
-
-Positioning Figures and Tables: Place figures and tables at the top and bottom of columns.
-   \begin{figure}[thpb]
-      \centering
-      \framebox{\parbox{3in}{We suggest that you use a text box to insert a graphic (which is ideally a 300 dpi TIFF or EPS file, with all fonts embedded) because, in an document, this method is somewhat more stable than directly inserting a picture.
-}}
-      %\includegraphics[scale=1.0]{figurefile}
-      \caption{Inductance of oscillation winding on amorphous
-       magnetic core versus DC bias magnetic field}
-      \label{figurelabel}
-   \end{figure}
-   
 
 
 %%%%%%%%%%%%%%%%%%%
@@ -276,6 +283,8 @@ bla
 \bibitem{c10} Ren J., Dubois D. J., Choffnes D.,  Mandalar A. M. Information Exposure From Consumer IoT Devices. \url{https://www.researchgate.net/publication/336657694_Information_Exposure_From_Consumer_IoT_Devices_A_Multidimensional_Network-Informed_Measurement_Approach}. date accessed: 03.05.2021
 
 \bibitem{c11} Knote R., Janson A., Eigenbrod L., Söllner M.. The What and How of Smart Personal Assistants: Principles and Application Domainsfor IS Research.  \url{https://mkwi2018.leuphana.de/wp-content/uploads/MKWI_285.pdf}. date accessed: 03.05.2021
+
+\bibitem{c12} Candid Wueest. An ISTR Special Report. A guide to the security of voice-activated smart speakers. \url{https://docs.broadcom.com/doc/istr-security-voice-activated-smart-speakers-en}. date accessed: 08.05.2021
 
 
 \end{thebibliography}
