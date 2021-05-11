@@ -86,10 +86,16 @@ Amazon and Google give users multiple ways to manage their data. As stated above
 Amazon and Google are two major players in the market of smart speakers with voice-controlled personal assistant capabilities. However the functionality of devices is not limited with those tasks that was developed and written on the device when it was sold to a user. A modern smartphones have a huge market of applications named Google Play Store for an Android phone and App Store for an Apple Iphone. The main goal is that using such markets user must not looking for a new applications somewhere and download a software that potentially has a virus or intended to damage their hardware or brings privacy risks. Amazon and Google has invented Skills and Actions that can be installed from a safe place that meets hight company's standards for privacy, security, and content. Skills are essentially third-party apps offering a variety of services the voice assistant itself does not provide. Examples include Amex, Hands- Free Calling, Nest Thermostat and Walmart \cite{c1}. These skills can be conveniently developed with the supports from Amazon and Google, using Alexa Skills Kit and Actions on Google. Indeed, in survey by Nan Z., Xianghang M et al. \cite{c1} it was found that up to November 2017, Alexa already has 23,758 skills and Google Assistant has 1,001. The total number of Amazon Alexa skills continues to grow at a steady pace in selected countries. As of January 2021, the skill count for Amazon Alexa has grown to 80,111 in the United States \footnote{https://www.statista.com/statistics/917900/selected-countries-amazon-alexa-skill-count}. The growing amount of third party features easy to see on the figure \ref{skills} below. Google proposes lower amount of third party features, thus on January 2019, there were 4,253 official Google Actions in the U.S. \footnote{https://voicebot.ai/2019/02/15/google-assistant-actions-total-4253-in-january-2019-up-2-5x-in-past-year-but-7-5-the-total-number-alexa-skills-in-u-s/}. Both companies state that customer's personal information (e.g. name, address) are not released to the 3rd-party unless specifically requested to be shared by the customer.
 \begin{figure}[thpb]
 	\centering
-	\includegraphics[scale=0.35]{img/skills.png}
+	\includegraphics[scale=0.33]{img/skills.png}
 	\caption{Total number of Amazon Alexa skills in selected countries as of January 2021. Source www.statista.com/statistics/917900/selected-countries-amazon-alexa-skill-count/} 
 	\label{skills}
 \end{figure}
+
+Third party features can be started either explicitly or implicitly. Explicit invocation takes place when a user requires a feature by its name from a digital vice assistance: for example, saying ``Alexa, talk to Amex'' to Alexa triggers the Amex skill for making a payment or checking bank account balances. Such a type of skills is also called custom skills on Alexa \cite{c1}.
+
+Implicit invocation occurs when a user tells the voice assistant to perform some tasks without directly calling to a skill name. When listening device receives a request from a user without a skill name, such as ``Alexa, play piano music" Alexa recognizes that no skill name has been specified, selects top candidate skills to fulfill the request, and then queries these skills to determine if skill can fulfill the intent that the customer wanted. If requested skill is not enabled by the user but supports the specific interface for skill understanding, then requested skill may be chosen and auto-enabled to fulfill a query for users who have not enabled requested skill yet \footnote{https://developer.amazon.com/en-US/docs/alexa/custom-skills/understand-name-free-interaction-for-custom-skills.html}. 
+
+Note that skill invocation name could be different from skill name, which is intended to make it simpler and easier for users to pronounce. For example, ``The Dog Feeder'' has invocation name as the dog. When a user invokes a device with its wake-word the almost same procedure as was described above will be started: the device captures user's voice command and sends it to the company's cloud for processing; the cloud performs speech recognition to translate the voice record into text, finds out the skill to be invoked, and then delivers the text, together with the timestamp, device status, and other meta-data, as a request to the skill's web cloud server \cite{c1}. Using skill's server the requested service will be provided for a user, for example the requested music track will be streamed and played to a user using a music streaming service that is enabled on the digital voice assistance. 
 
 %%%%%%%%%%%
 
@@ -121,22 +127,6 @@ Amazon and Google are two major players in the market of smart speakers with voi
 
 %%%%%%%%%%%
 \section{COPY AND PASTE CORE IDEAS}
-\subsection{About}
-	\textbf{VPA on IoT devices}.  	
-
-These assistants have a range of capabilities, from weather report, timer setting, to-do list maintenance to voice shopping, hands-free messaging and calling. The user can manage these capabilities through a companion app running on her smartphone.
-
-\subsection{Skills and actions}
-
-
-Both Amazon Alexa and Google Assistant run a skill market that can be accessed from their companion app on smartphones or web browser for users to discover new skills.
-
-Skills can be started either explicitly or implicitly. Explicit invocation takes place when a user requires a skill by its name from a VPA: for example, saying ?Alexa, talk to Amex? to Alexa triggers the Amex skill for making a payment or checking bank account balances. Such a type of skills is also called custom skills on Alexa.
-
-Implicit invocation occurs when a user tells the voice assistant to perform some tasks without directly calling to a skill name. For example, ?Hey Google, will it rain tomorrow?? will invoke the Weather skill to respond with a weather forecast. Google Assistant identifies and activates a skill implicitly whenever the conversation with the user is under the context deemed appropriate for the skill. This invocation mode is also supported by the Alexa for specific types of skills.
-
-Specifically, to invoke a skill explicitly, the user is expected to use a wake-word, a trigger phrase, and the skill?s invocation name. For example, for the spoken sentence ?Hey Google, talk to personal chef?, ?Hey Google? is the wake-word, ?talk to? is the trigger phrase, and ?personal chef? is the skill invocation name. Note that skill invocation name could be different from skill name, which is intended to make it simpler and easier for users to pronounce. For example, ?The Dog Feeder? has invocation name as the dog; ?Scryb? has invocation name as scribe. When a user invokes a VPA device with its wake-word, the device captures her voice command and sends it to the VPA service provider?s cloud for processing. The cloud performs speech recognition to translate the voice record into text, finds out the skill to be invoked, and then delivers the text, together with the timestamp, device status, and other meta-data, as a request to the skill?s web service. Note that the skill will only receive requests in text format rather than the users? voice recordings.To publish a skill, the developer needs to submit the informa- tion about her skill like name, invocation name, description and the endpoint where the skill is hosted for a certification process. This process aims at ensuring that the skill is functional and meets the VPA provider?s security requirements and policy guidelines.
-
 \subsection{Adversary Model}
 today anyone can publish her skill through Amazon and Apple markets, given that these markets have only minimum protection in place to regulate the functions submitted: almost nothing on Amazon before our attacks were reported2, and only the basic check is performed on Google to find duplicated invocation names. once a malicious skill is published, it can be transparently launched by the victim through her voice commands, without being downloaded and installed on her device. Therefore, they can easily affect a large number of VPA IoT devices. 
 
