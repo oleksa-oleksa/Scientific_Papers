@@ -151,6 +151,7 @@ Integrating problems were mentioned by interviewed people. It was found that an 
 A fact the someone have purchased a voice assistant leads to the new investments in smart home appliance. Responders in the research by Ammari et al. mentioned that after buying a voice assistant they suddenly realised that the device itself is probably just a very expensive clock with an ability to play music via built-in speaker and tell a weather forecast. Users wanted rather minimise their costs to home automation by installing the cheaper smart switches then just purchasing additionally expensive smart lights like the Hue. As users installed more IoT devices, the need for more voice assistants in different parts of the house arose. This fact should be considered more careful by users when deciding to purchase a voice assistant since it is brings the new additional costs and need to purchase a new IoT devices. Even the size of a house is decisive for the purchase of additional equipment including additional voice assistants.
 
 
+
 %%%%%%%%%%
 
 \subsection{Usage by children}
@@ -163,12 +164,14 @@ Interesting are the findings from different research about the nature of interac
 Voice assistants became quickly a digital interface particularly appreciated by children for its (relative) ease of use. While there is no doubt that a computer or smartphone should not be left in the hands of a young child without parental supervision, it is essential to note that the same is true for voice interfaces \cite{c8}.
 
 
-
-
 %%%%%%%%%%%
-x
+
 \section{VULNERABILITIES}
 \subsection{Security and Privacy Concerns}
+As was mentioned above in the survey by Lau et al. \cite{c5} smart speaker users and non-users were interviewed and it was found that smart speaker users have fewer privacy concerns and either think the company that developed a smart assistant can be trusted and they will protect their privacy and data; or think they have nothing to hide and third parties companies have no real interest to their personal data. 
+
+However the security and privacy concerns regarding using the voice assistants should be seriously considered by a new potential and existing users and probably requires new studies as new features and versions will be developed and released to a market.  Anyone with access to a voice-activated device can utter a wake-up word, ask it questions, gather information about the accounts and services associated with the device, and ask it to perform tasks. It is claimed that smart speakers can distinct children's voices but in the research by Sciuto et al \cite{c14}  was found that the log files did not provide any insights into which household member gave each command. Interviewed parents clearly remember as their children successfully interacting with Alexa and ask her questions but these responds can not be extracted from the log data. Since the voice assistant can not distinguish the children voices it arises questions with with the children's online privacy protection. Children's specific learning needs must be considered, access to the skills installed by parents  (such a bank account) must be limited if a child gives a command; for playing music must be used age rating and parents guide as songs can contain offensive words, aggression, sexual texts or suicidal romantic. 
+
 \label{sec:security_concerns}
 \subsection{Accidental Recordings}
 
@@ -180,38 +183,6 @@ x
 
 
 %%%%%%%%%%%
-\section{COPY AND PASTE CORE IDEAS}
-\subsection{Adversary Model}
-today anyone can publish her skill through Amazon and Apple markets, given that these markets have only minimum protection in place to regulate the functions submitted: almost nothing on Amazon before our attacks were reported2, and only the basic check is performed on Google to find duplicated invocation names. once a malicious skill is published, it can be transparently launched by the victim through her voice commands, without being downloaded and installed on her device. Therefore, they can easily affect a large number of VPA IoT devices. 
-
-we found that for Amazon, such names are not unique skill identifiers: multiple skills with same invocation names are on the Amazon market. Also, skills may have similar or related names.66 different Alexa skills are called cat facts, 5 called cat fact and 11 whose invocation names contain the string ?cat fact?, e.g. fun cat facts, funny cat facts. When such a common name is spoken, Alexa chooses one of the skills based on some undisclosed policies (possibly random as observed in our research). When a different but similar name is called, however, longest string match is used to find the skill. For example, ?Tell me funny cat facts? will trigger funny cat facts rather than cat facts. This problem is less serious for Google, which does not allow duplicated invocation names. However, it also cannot handle similar names
-
-\subsection{Voice-based remote attacks.}
-In our research, we analyzed the most popular VPA IoT systems - Alexa and Google Assistant, focusing on the third-party skills deployed to these devices. It is completely feasible for an adversary to remotely attack the users of these popular systems, collecting their private information through their conversations with the systems \cite{c1}. 
-
-\textbf{Voice squatting attack (VSA):} the adversary exploits how a skill is invoked (by a voice command), and the variations in the ways the command is spoken (e.g., phonetic differences caused by accent, courteous expression, etc.) to cause a VPA system to trigger a malicious skill instead of the one the user intends \cite{c1}. For example, one may say ``Alexa, open Capital One please'', which normally opens the skill Capital One, but can trigger a malicious skill Capital One Please once it is uploaded to the skill market. In response to the commands, a malicious skill can pretend to yield control to another skill (switch) or the service (terminate), yet continue to operate stealthily to impersonate these targets and get sensitive information from the user.
-
-More specifically, we first surveyed 156 Amazon Echo and Google Home users and found that most of them tend to use natural languages with diverse expressions to interact with the devices: e.g., ``play some sleep sounds'' . These expressions allow the adversary to mislead the service and launch a wrong skill in response to the user's voice command, such as \textit{some sleep sounds} instead of \textit{sleep sounds} \cite{c1}.
-
-Our further analysis of both Alexa and Google Assistant demonstrates that indeed these systems identify the skill to invoke by looking for the longest string matched from a voice command. From these responses, we found that 50\% of the Amazon Echo users used ?please? at least once in their invocation examples, so did 41\% of the Google Home users.
-Also, 28\% users reported that they did open unintended skills when talking to their devices. \cite{c1}.
-
-found that an adversary can intentionally induce confusion by using the name or similar one of a target skill, to trick the user into invoking an attack skill when trying to open the target. For example, the adversary who aims at Capital One could register a skill Capital Won, Capitol One, or Captain One. All such names when spoken by the user could become less distinguishable, particularly in the presence of noise, due to the limitations of today?s speech recognition techniques.
-
-To study voice squatting, we randomly sampled 100 skills each from Alexa and Google assistant markets.  For this purpose, we studied two types of the attacks: voice squatting in which an attack skill carries a phonetically similar invocation name to that of its target skill, and word squatting where the attack invocation name includes the target?s name and some strategically selected additional words (e.g., ?cat facts please?). During this study, we found that a mispronounced invocation name would also trigger the right skill if their pronunciation is close and there is no other registered skills using the mispronounced invocation name. ...we then register ?captain one? as the attack skill?s invocation name, play the original invocation utterance... Such skills were invoked five times each in the test modes of Alexa and Google Assistant.
-
-To study word squatting, we randomly sampled ten skills from each skill markets as the attack targets. For each skill, we built four new skills whose invocation names include the target?s name together with the terms identified from our survey study (Section III-A): for example, ?cat facts please? and ?my cat facts?. On Alexa, an attack skill with the extended name (that is, the target skill?s invocation name together with terms ?please?, ?app?, ?my? and ?the?) was almost always launched by the voice commands involving these terms and the target names. On Google Assistant, however, only the utterance with word ?app? succeeded in triggering the corresponding attack skill, which demonstrates that Google Assistant is more robust against such an attack. However, when we replaced ?my? with ?mai? and ?please? with ?plese?, all such attack skills were successfully invoked by the commands for their target skills (see Table IV). This indicates that the protection Google puts in place (filtering out those with suspicious terms) can be easily circumvented.
-
-\textbf{Voice Masquerading Attack (VMA):}
-
-Google Assistant seems to have protection in place against the impersonation. Specifically, it signals the launch of a skill by speaking ?Sure, here is?, together with the skill name and a special earcon, and skill termination with another earcon. Both Alexa and Google Assistant support voluntary skill termination, allowing a skill to terminate itself right after making a voice response to the user. according to our survey study, 78\% of the participants rely on the response of the skill (e.g. ?Goodbye? or silence) to determine whether a skill has been terminated. This allows an attack skill to fake its termination by providing ?Goodbye? or silent audio in its response while keeping the session alive. 
-
-When sending back a response, both Alexa and Google Assistant let a skill include a reprompt (text content or an audio file), which is played when the VPA does not receive any voice command from the user within a period of time. If the user continues to keep quiet, after another 6 seconds for Alexa and one additional reprompt from Google and follow-up 8-second waiting, the running skill will be forcefully terminated by the VPA. On the other hand, we found in our research that as long as the user says something (even not meant for the skill) during that period, the skill is allowed to send another response together with a reprompt. Adding a silent audio file (up to 90 seconds for Alexa and 120 seconds for Google Assistant) will make it to be able to continue to run at least 102 seconds on Alexa and 264 seconds on Google. This running time can be further extended considering the attack skill attaching the silent audio right after its last voice response to the user (e.g., ?Goodbye?), which gives it 192 seconds on Alexa and 384 on Google Assistant), and indefinitely whenever Alexa or Google Assistant picks up some sound made by the user. In this case, the skill can reply with the silent audio and in the meantime, record whatever it hears.
-
-Only ?exit? is processed by the VPA service and used to forcefully terminate the skill. Through survey study, we found that 91\% of Alexa users used ?stop? to terminate a skill, 36\% chose ?cancel?, and only 14\% opted for ?exit?, which suggests that the user perception is not aligned with the way Alexa works and therefore leaves the door open for the VMA. Consequently, all the information stealing and Phishing attacks caused by the VSA can also happen here. 
-
-THIS WAS SOURCE 1 \cite{c1}\\\\
-%%===================
 
 SOURCE 2 \cite{c2}
 
@@ -225,7 +196,7 @@ Security and Privacy Concerns \cite{c2}:
 
 %%
 
-Privacy is also considered by Hoy (2018) since anyone with access to a voice-activated device can ask it questions, gather information about the accounts and services associated with the device, and ask it to perform tasks. As stated by Horn (2018), since Voice Assistants and Smart Speakers can distinct children?s voices, their specific learning needs are certain to raise questions with the Children?s Online Privacy Protection Act (COPPA) and the Family Educational Rights and Privacy Act (FERPA).
+Privacy is also considered by Hoy (2018) 
 
 In a survey by Malkin et al. (2019) \cite{c4} sample group was approximately gender-balanced,with 44.0\% self-identifying as female, and the median reported age was 34. Households of 2 or more accounted for 83.6\% of all participants, with a median household size of 3. Regarding 116 smart speaker owners? beliefs, attitudes, and concerns about the recordings that are made and shared by their devices (Amazon and Google), it was found that 56\% of them did not know that their recordings were being permanently stored and that they could review them. It was observed, that while participants did not consider their own recordings important or sensitive, they were more protective of others? recordings, such as children and guests, and were strongly opposed to the use of their data by third parties. Only 3\% of the participants review their recordings and deleted them. Additionally, only 5\% of the participants used the mute button on their device while only 4\% unplugged their device in order to stop listening. The survey concludes that privacy controls are underutilized\cite{c2}
 
