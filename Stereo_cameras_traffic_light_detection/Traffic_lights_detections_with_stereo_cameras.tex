@@ -1,16 +1,16 @@
 % !TeX spellcheck = en_GB 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %2345678901234567890123456789012345678901234567890123456789012345678901234567890
-%        1         2         3         4         5         6         7         8
+% 1 2 3 4 5 6 7 8
 
-\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf} % Comment this line out if you need a4paper
 
-%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
+%\documentclass[a4paper, 10pt, conference]{ieeeconf} % Use this line for a4 paper
 
-\IEEEoverridecommandlockouts                              % This command is only needed if 
-                                                          % you want to use the \thanks command
+\IEEEoverridecommandlockouts % This command is only needed if 
+% you want to use the \thanks command
 
-\overrideIEEEmargins                                      % Needed to meet printer requirements.
+\overrideIEEEmargins% Needed to meet printer requirements.
 
 % See the \addtolength command later in the file to balance the column lengths
 % on the last page of the document
@@ -21,7 +21,7 @@
 %\usepackage{mathptmx} % assumes new font selection scheme installed
 %\usepackage{times} % assumes new font selection scheme installed
 %\usepackage{amsmath} % assumes amsmath package installed
-%\usepackage{amssymb}  % assumes amsmath package installed
+%\usepackage{amssymb} % assumes amsmath package installed
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{hyperref}
@@ -50,38 +50,71 @@ Stereo cameras with applications to traffic scenarios,\\ traffic lights detectio
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-A traffic light recognition system is a very important building block in an advanced driving  assistance  system  and  an  autonomous  vehicle  system.
+A traffic light recognition system is a very important building block in an advanced driving assistance system and an autonomous vehicle system. One of the major causes of traffic accidents worldwide is the disregard of traffic lights by drivers. When one vehicle collides with another in a car accident at the high speeds when running a red light, the effects can be catastrophic. A driving support systems must precisely detect and recognize traffic lights and give appropriate information to drivers and in the case of self driving car control the driving, stopping and navigation process respectively. The key sensor is a camera installed in a moving vehicle. A pair of cameras are required to implement stereo vision to enhance performance of detections algorithms. In this paper different modern systems and approaches for real-time detection and recognition of traffic signals are reviewed and analyzed. 
 
 \end{abstract}
 
 
 %% STRUCTURE
-\section{INTRODUCTION}
-A stereo camera is a type of camera with two or more image sensors. This allows the camera to simulate human binocular vision and therefore gives it the ability to perceive depth.
+\section{Introduction}
+Autonomous vehicles are able to perceive their surroundings (obstacles and track) and commute to destination with the help of a combination of sensors and radars such as RADAR, LIDAR, GPS and cameras for computer vision. Traffic light detection and distance measurement using stereo camera is a very important and challenging task in image processing domain of self driving vehicles. Last years various kinds of driving support systems have been developed and the driving environment has been improved by the recent research results using new techniques. The importance of the correctness of the detection can not be underestimated because according to the statistical reports the one ot the major causes of traffic incidents including humans deaths is a fact that driver has disregarded traffic lights \cite{c3}. Self-driving vehicles becomes part of humans' transport network starting from fully automated metro system and ending with private self driving cars. Thus integrated traffic light distance measurement system for self-driving car must be safe, robust and detect traffic lights without false positive and false negative outcomes because both of them could produce disastrous consequences. 
 
-%%%%%%%%%%%
+A variety of algorithms and approaches have been used integrating different method of detection, colour recognition and distance calculation and they will be reviewed in this paper. Fairfield et al. \cite{c5} presented a traffic-light detection method using a prior map for indication when and where a vehicle should be able to see a traffic light this the predicted location can be used to improve detection rate of the traffic light state. Langner et al. \cite{c4} used during experiments with their autonomous car the known geometry of traffic lights and their officially defined exact positions on the street such a height above the ground to reach the detection rates above 95\% in experiments.
 
-\section{ABOUT}
-\subsection{What is about?}
+\subsection{About a Stereo Camera}
+To be able to drive autonomously a vehicle has to perceive the world around and have eyes, not real eyes, but cameras to analyse these things to happen on the way. For a computer vision the stereo camera is used that is a type of camera with two or more image sensors. This allows a camera to simulate human binocular vision. By using stereo disparity the difference in image location of an object seen by the left and right cameras can be calculated using the cameras' horizontal separation. The principle underlying stereo vision is called triangulation and is used to estimate the position of an object by finding the intersection of the two lines passing through the centre of projection and the projection of the point in each image. Since cameras look at an image from different angles, the difference between the two point of view can be computed and a distance estimation established. That is what needed to estimate the distance to a traffic lights or other obstacles that occur during the process of driving. We have to distinguish the distance to the traffic lights since several traffic lights can be seen simultaneously at double intersections and only the near traffic light is important for determining the next maneuver. 
+
+\subsection{Camera Setup}
+
+To achieve distance estimation using Stereo Vision the two cameras' intrinsic and extrinsic parameters must be first calibrated. Calibration means transformation a 3D point from the world coordinates [X,Y,Z] to a pixel coordinates [X,Y] going through camera coordinates. Extrinsic calibration can be done with parameters called R (rotation matrix) and T (translation matrix) is using for conversion from World Coordinates to Camera Coordinates \footnote{https://medium.com/think-autonomous/pseudo-lidar-stereo-vision-for-self-driving-cars-41fa1ac42fc9}. This transformation represents the camera’s position and orientation relative to the car’s coordinate frame and influences the sensitive accuracy of the mapping of captured picture \cite{c4}. Intrinsic calibration with matrix called K used for conversion from Camera Coordinates to Pixel Coordinates. The inner values for the camera such as focal length, optical centre and others which determine the lens distortion must be used for this conversion. 
+
+The timing delay between when the image is taken by the camera and when it is transmitted to be able processed can be estimated using precise hardware timestamps. This timing delay varies depending on the camera frame rate and Firewire bus scheduling allocation, but Fairfield et al. experimentally found it to be stable within a few hundredths of a second for a given configuration.
+ 
+\subsection{Traffic lights as a special perception problem}
+
+As traffic lights have to be detected up to passing the stop line at an intersection and on streets in Europe it is common that traffic lights are directly installed at stop lines \cite{c2} and, for example, in Germany it the exact positions of traffic-lights are defined by the RiLSA standard (Richtlinien f\"ur Lichtsignalanlagen) \cite{c4} what was mentioned by Langner et al. at their paper. Under this directive, the base of a hanging traffic-light frame lays at 4.5m. Signals mounted to a pole are positioned at 2.1m above the ground \cite{c4}. A human driver can easily turn their head and recognise the traffic lights above to the right. Opposite to this an autonomous vehicle needs to cover such cases with the sensor setup and a high field of view \cite{c2}. High field of views can decrease the resolution of objects in the camera image and must be considered during the camera setup. The detection of all traffic lights at a defined distance range must be also guaranteed. A stereo camera with a field of view of 60 degrees covers the distance range from approximately 20m up to infinity. The datasets recorded by Julian M\"uller et. al. \cite{c1} \cite{c2} on German streets mainly contain intersections, in which no or at most one lane must be monitored. Sometimes surprisingly at least two lanes must be monitored and this increases the minimum camera's angle need for a processing and a computational costs.
+
+Traffic lights usually have startling colours so drivers can easily see them. Most of the existing methods for traffic lights detection also attempt to detect pixels of the typical colours of traffic lights, i.e.,red, yellow, and green combining the colour with other information, such as shape or position \cite{c3}. The most common failure conditions in a traffic light detection system are either visual obstructions or false detected objects. Brake red lights in front of the car can be recognized and thus are false positives but considered to be safe since the vehicle should already be braking for the obstructing object \cite{c5}. False positives for greens may arise from particular patterns of light on a tree, or from brightly lit billboards\cite{c5}. However, if the car fails to see the red lights in an intersection (false negatives) or falsely detect a green light (a false positive like sun shining through trees) it can take an incorrect action. 
+
+A traffic signal recognition system based on a color camera requires two inactive traffic lights to be visible for the verification of active traffic light \cite{c6}. To discern active traffic light from the background, the exposure time had to be long enough, which forced the active traffic lights into saturation hence producing white instead of the signal colors \cite{c6}. Additionally the preliminary experiments by Moizumi et al. revealed that the colours of traffic lights captured by a digital video camera are easily over-saturated in various conditions not only long exposure which renders traffic light detection using color information difficult \cite{c3}. For example the most of the pixels of the yellow traffic light in a case of over-saturation change to white. A method for detecting traffic lights even if the pixel colors of the traffic lights are over-saturated will be discussed below but many regions that are not traffic lights are also detected by this type of approach and all candidates other than traffic lights must be excluded efficiently \cite{c3}.
+
+The 3D position and orientation, or pose, of traffic lights can be estimated during the driving and used as a support system. Anyway position of the traffic lights acquired during the detection phase does not provide enough information for an autonomous vehicle to make a decision \cite{c7}.
+
+The rapid deployment of the new LED traffic lights has led to a new problem. In the case of LED traffic lights, since the LED lights blink at a high frequency, there are frames in which it appears that all the traffic lights are turned off. In that case, standard color-based detection also fails. Tracking results must be complemented with an additional frame to that in which the light appears to be turned off \cite{c3}. A blinking light can appear in a case of LED light even in successive frames.
+
+%%%%%%%%%%
 
 
-TODO
+\section{Traffic light mapping}
+The color and lit/unlit state of standard traffic lights can only be perceived visually and active sensors such as sonar, radar, and lidar can not be used for this task. A traffic-light detection method able to recognize left and right turn traffic-lights is presented by Fairfield et al. \cite{c5}. They introduced in their paper a use of a prior map that can help to indicate when and where a vehicle should be able to see a traffic light. The prior map of traffic lights allow a vehicle to predict when it should see traffic lights and take conservative action, such as braking gradually to a stop while alerting the driver, when it is unable to observe any lights \cite{c5}. The process of estimating the 3D position and orientation, or pose, of traffic lights called in the paper a traffic light mapping. It is know that the precise position of traffic lights is not generally available and even the estimation of traffic light locations from aerial or satellite imagery provides the accuracy only within a few meters without information of the traffic light altitude. However, using cameras, GPS, IMU, lasers through intersections and collection of precisely timestamped camera images can estimate the traffic light positions by triangulating from multiple views. For this a large set of well-labeled images of the traffic lights is needed. To create this a huge log file that includes camera images and the car's precise pose is used as an input to the automatic mapping system \cite{c5}. Considering the fact that traffic lights will only occur at intersections, geospatial queries through the Google Maps API were used to discard images taken when no intersections are likely to be visible. It must be mentioned that Google Maps only includes information about intersections and not whatever it is controlled or uncontrolled intersection with any traffic lights to regulate traffic. While the car is approaching an intersection, a created by Fairfield et al. traffic light classifier runs over the entire captured image. Appropriate circle size and aspect ratios help classifier to find brightly-colored red, yellow, and green circles. The distortions of captured objects due to changes in roll, pitch, and yaw of moving car can be corrected using the camera model thus the precise car pose is known for each image. Using a set of object classified labels in two or more camera images, the pose of the 3D object using linear triangulation is estimated \cite{c5}.
 
-Lorem Ipsum
+When driving a car it is obligatory to know which lights are relevant to current lane and to desired trajectory and next maneuver. At double intersections several traffic lights can be seen simultaneously and semantics of new and complex intersections can be confused even for a human driver. A detailed prior map from the discussed approach can be used as an association between a traffic light and the different allowed routes through an intersection. Thus as explained above with the known car pose and an accurate prior map of the traffic light locations, it can be predicted when traffic lights should be visible, and where they should appear in the camera image. Car position is estimated from lidar localization with accurate elevation and then projected using the camera model into the image frame as an axis-aligned bounding box \cite{c5}. From the prior map, the type of the expected light elements is used to find appropriately-sized brightly colored red and green blobs. The type of the traffic signal is known thus its geometry is also known and can be used during detection such as geometric constraints on the low-level blobs to be green. 
 
-\subsection{Something}
+Thousands of human-labeled traffic lights are used as a base for a classifier training and authors declare to continue to add more labels as new situations were found, such as brightly colored billboards or inclement weather. The described system has been deployed on multiple cars, and has provided reliable and timely information about the state of the traffic lights during thousands of drives through intersections \cite{c5}. 
+ 
+%%%%%%%%%% 
+ 
+\section{Color pixels detection}
+Together with color of a detected traffic light the 3D position of each pixel have to be also considered during detection process \cite{c4}. The position of the red, yellow and red lights is in all Europe's countries is standardized by the RiLSA standard (Richtlinien f\"ur Lichtsignalanlagen) what was mentioned above. Thus the known geometry of traffic lights can be used to construct traffic-light entities consisting of one lit and two unlit circular light sources on a rectangular dark-colored frame \cite{c4}.
+With a known length ratios between the lights and the frame, positions of red, yellow and green traffic signals can be resolved, the area where the two other unlit light sources are can be found, and the correct lit traffic light can be detected. This method was used by Langner et al. with developed by them autonomous car and detection rates reached above 95\% in experiments what considered already significant and useful for a warning system giving the driver a reaction time of 2.8s in case of a warning with in inner-city speed limit of 50km/h \cite{c4}.
 
-TODO
+Additionally using the HSV color space for pixel classification can be considered because it can separate luminance and chroma \cite{c4}. Although the red and yellow colour's distributions overlap they have different modes. It has to be mentioned that most of color-matching pixels can be rejected very fast because of the height of their position on the street or lateral distance to the vehicle \cite{c4}. Thus we can distinguish brake red lights in front of the car from the traffic lights and depending from the distance control the braking to avoid the collision.
 
-Sapana navaga
+\section{Color Saturation Approach}
 
-\section{CONCLUSIONS}
+%%%%%%%%%%
+
+\section{High Frequency detection}
+
+%%%%%%%%%%
+
+\section{Conclusion}
 TADAM! 
 
 THE END
 
 
-\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+\addtolength{\textheight}{-12cm} % This command serves to balance the column lengths
 % on the last page of the document manually. It shortens
 % the textheight of the last page by a suitable amount.
 % This command does not take effect until the next page
@@ -93,7 +126,7 @@ THE END
 
 \begin{thebibliography}{99}
 
-\bibitem{c1} Andreas Fregin, Julian M\"uller, Klaus Dietmayer. Three  Ways  of  using  Stereo  Vision  for  Traffic  Light  Recognition \url{https://www.researchgate.net/publication/318810474} date accessed: 07.05.2021
+\bibitem{c1} Andreas Fregin, Julian M\"uller, Klaus Dietmayer. Three Ways of using Stereo Vision for Traffic Light Recognition \url{https://www.researchgate.net/publication/318810474} date accessed: 07.05.2021
 
 \bibitem{c2} Andreas Fregin, Julian M\"uller, Klaus Dietmayer. Multi-camera system for traffic light detection: About camera setup and mapping of detections \url{https://www.researchgate.net/publication/323792381} date accessed: 12.05.2021
 
@@ -102,6 +135,13 @@ THE END
 \bibitem{c4} Tobias Langner, Daniel Seifert, Bennet Fischer, Daniel Goehring, Tinosch Ganjineh. Traffic Awareness Driver Assistance based on Stereovision,Eye-tracking, and Head-Up Display \url{https://www.drgoehring.de/bib/langner16icra-sst/langner16icra-sst.pdf} date accessed: 19.05.2021
 
 \bibitem{c5}Nathaniel Fairfield, Chris Urmson. Traffic Light Mapping and Detection. \url{https://static.googleusercontent.com/media/research.google.com/de//pubs/archive/37259.pdf} date accessed: 22.05.2021
+
+\bibitem{c6}Frank Lindner, Ulrich Kressel, Stephan Kaelberer. Robust Recognition of Traffic Signals. \url{https://www.researchgate.net/publication/4092560} date accessed: 30.05.2021
+
+\bibitem{c7}Wael Omar, Impyeong Lee, Gyuseok Lee, Kang Min Park. Detection And Localization Of Traffic Lights Using Yolov3 And Stereo Vision \url{https://www.researchgate.net/publication/343746358} date accessed: 02.06.2021
+
+\bibitem{c8}Kento Yabuuchi, Masahiro Hirano, Taku Senoo, Norimasa Kishi. Real-Time Traffic Light Detection with Frequency Patterns Using a High-Speed Camera \url{https://www.researchgate.net/publication/343091935} date accessed: 03.06.2021
+
 
 \end{thebibliography}
 \end{document}
