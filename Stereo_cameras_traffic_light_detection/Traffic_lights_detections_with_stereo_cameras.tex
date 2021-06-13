@@ -25,7 +25,9 @@
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{hyperref}
-
+\usepackage{caption}
+\captionsetup{justification  = raggedright,
+	singlelinecheck = false}
 
 
 \title{\LARGE \bf
@@ -84,6 +86,8 @@ The rapid deployment of the new LED traffic lights has led to a new problem. In 
 
 %%%%%%%%%%
 
+\section{Deep CNN for object detection}
+
 
 \section{Traffic light mapping}
 The color and lit/unlit state of standard traffic lights can only be perceived visually and active sensors such as sonar, radar, and lidar can not be used for this task. A traffic-light detection method able to recognize left and right turn traffic-lights is presented by Fairfield et al. \cite{c5}. They introduced in their paper a use of a prior map that can help to indicate when and where a vehicle should be able to see a traffic light. The prior map of traffic lights allow a vehicle to predict when it should see traffic lights and take conservative action, such as braking gradually to a stop while alerting the driver, when it is unable to observe any lights \cite{c5}. The process of estimating the 3D position and orientation, or pose, of traffic lights called in the paper a traffic light mapping. It is know that the precise position of traffic lights is not generally available and even the estimation of traffic light locations from aerial or satellite imagery provides the accuracy only within a few meters without information of the traffic light altitude. However, using cameras, GPS, IMU, lasers through intersections and collection of precisely timestamped camera images can estimate the traffic light positions by triangulating from multiple views. For this a large set of well-labeled images of the traffic lights is needed. To create this a huge log file that includes camera images and the car's precise pose is used as an input to the automatic mapping system \cite{c5}. Considering the fact that traffic lights will only occur at intersections, geospatial queries through the Google Maps API were used to discard images taken when no intersections are likely to be visible. It must be mentioned that Google Maps only includes information about intersections and not whatever it is controlled or uncontrolled intersection with any traffic lights to regulate traffic. While the car is approaching an intersection, a created by Fairfield et al. traffic light classifier runs over the entire captured image. Appropriate circle size and aspect ratios help classifier to find brightly-colored red, yellow, and green circles. The distortions of captured objects due to changes in roll, pitch, and yaw of moving car can be corrected using the camera model thus the precise car pose is known for each image. Using a set of object classified labels in two or more camera images, the pose of the 3D object using linear triangulation is estimated \cite{c5}.
@@ -93,11 +97,11 @@ When driving a car it is obligatory to know which lights are relevant to current
 \begin{figure}[thpb]
 	\centering
 	\includegraphics[scale=0.62]{img/prior_map.png}
-	\caption{Prior map with mapped traffic lights in San Francisco - San Jose area, in total are mapped about a thousand intersections and over 4000 lights . Source: Nathaniel Fairfield, Chris Urmson. Traffic Light Mapping and Detection} 
+	\caption{Prior map with mapped traffic lights in San Francisco - San Jose area. Source: \cite{c5}} 
 	\label{prior_map}
 \end{figure}
 
-Thousands of human-labeled traffic lights are used as a base for a classifier training and authors declare to continue to add more labels as new situations were found, such as brightly colored billboards or inclement weather. The figure \ref{prior_map} shows mapped traffic lights from some intersections in San Jose area made in 2011 by Fairfield et al. The described system has been deployed on multiple cars, and has provided reliable and timely information about the state of the traffic lights during thousands of drives through intersections \cite{c5}. According to a recent report from Droid-Life\footnote{https://www.droid-life.com/2020/07/07/google-maps-is-starting-to-show-traffic-lights-on-android/} in the August 2020, Google has started testing a new feature that will show traffic lights in Google Maps on Android. Traffic lights are shown just in some intersections of the several US cities. The traffic lights are visible both while using the traditional map view and while navigating, however, they do appear slightly bigger and more noticeable while navigating. For now, it does not seem like Google has a use for the traffic lights other than displaying them on a map\footnote{https://arstechnica.com/gadgets/2020/08/google-maps-starts-widely-labeling-traffic-lights-in-the-us/}. It is expected that people with the same route to work every day will learn, over time, how to adjust the speed to reduce and even eliminate waiting times at traffic lights. It is expected that feature will be gradually available in more cities and counties when the prior maps will be created and extended to European cities, as local authorities and available infrastructure will allow. Anyway, in the June 2021, almost one year after feature was launched in some US cities, no further information about extension of this feature can be found. 
+Thousands of human-labeled traffic lights are used as a base for a classifier training and authors declare to continue to add more labels as new situations were found, such as brightly colored billboards or inclement weather. The figure \ref{prior_map} shows mapped traffic lights from some intersections in San Jose area made in 2011 by Fairfield et al. In total are mapped about a thousand intersections and over 4000 lights. The described system has been deployed on multiple cars, and has provided reliable and timely information about the state of the traffic lights during thousands of drives through intersections \cite{c5}. According to a recent report from Droid-Life\footnote{https://www.droid-life.com/2020/07/07/google-maps-is-starting-to-show-traffic-lights-on-android/} in the August 2020, Google has started testing a new feature that will show traffic lights in Google Maps on Android. Traffic lights are shown just in some intersections of the several US cities. The traffic lights are visible both while using the traditional map view and while navigating, however, they do appear slightly bigger and more noticeable while navigating. For now, it does not seem like Google has a use for the traffic lights other than displaying them on a map\footnote{https://arstechnica.com/gadgets/2020/08/google-maps-starts-widely-labeling-traffic-lights-in-the-us/}. It is expected that people with the same route to work every day will learn, over time, how to adjust the speed to reduce and even eliminate waiting times at traffic lights. It is expected that feature will be gradually available in more cities and counties when the prior maps will be created and extended to European cities, as local authorities and available infrastructure will allow. Anyway, in the June 2021, almost one year after feature was launched in some US cities, no further information about extension of this feature can be found. 
  
 %%%%%%%%%% 
  
@@ -105,7 +109,18 @@ Thousands of human-labeled traffic lights are used as a base for a classifier tr
 Together with color of a detected traffic light the 3D position of each pixel have to be also considered during detection process \cite{c4}. The position of the red, yellow and red lights is in all Europe's countries is standardized by the RiLSA standard (Richtlinien f\"ur Lichtsignalanlagen) what was mentioned above. Thus the known geometry of traffic lights can be used to construct traffic-light entities consisting of one lit and two unlit circular light sources on a rectangular dark-colored frame \cite{c4}.
 With a known length ratios between the lights and the frame, positions of red, yellow and green traffic signals can be resolved, the area where the two other unlit light sources are can be found, and the correct lit traffic light can be detected. This method was used by Langner et al. with developed by them autonomous car and detection rates reached above 95\% in experiments what considered already significant and useful for a warning system giving the driver a reaction time of 2.8s in case of a warning with in inner-city speed limit of 50km/h \cite{c4}.
 
-Additionally using the HSV color space for pixel classification can be considered because it can separate luminance and chroma \cite{c4}. Although the red and yellow colour's distributions overlap they have different modes. It has to be mentioned that most of color-matching pixels can be rejected very fast because of the height of their position on the street or lateral distance to the vehicle \cite{c4}. Thus we can distinguish brake red lights in front of the car from the traffic lights and depending from the distance control the braking to avoid the collision.
+In their work Mu et al. \cite{c9} \cite{c7} proposed an image processing approach that converts the image color from red green blue (RGB) to hue-saturation value (HSV). Using the HSV color space for pixel classification can be considered because it can separate luminance and chroma \cite{c4}. Although the red and yellow colour's distributions overlap they have different modes. Potential areas can then identified by scanning the scene using transcendental colour threshold with prior knowledge of the image. Finally, the location of the traffic lights using the Oriented  Gradients  (HOG)  and  Support  Vector  (SVM) functionalities can be identified.
+
+It has to be mentioned that most of color-matching pixels can be rejected very fast because of the height of their position on the street or lateral distance to the vehicle \cite{c4}. Thus brake red lights in front of the car can be distinguished from the traffic lights and depending from the distance control the braking to avoid the collision. Knowing the geometry and potential position of needed object it is possible to locate the traffic light accurately and cut out the area of interest around the location to reduce the calculation costs and use only this area in the image processing to achieve the final identification. The precise bounding box of the traffic light in the image must be tracked all the time and then can be smoothed and contrast can be increased for improving the detection rate \cite{c7}. After converting the cropped image from RGB to HSV colour space, the color data of the traffic lights results in H channel because the H (hue) component is separated from all data and thus it makes a traffic light determination possible.
+
+\begin{figure}[thpb]
+	\centering
+	\includegraphics[scale=0.35]{img/hsv.png}
+	\caption{HSV colour model. Source: \cite{c7}} 
+	\label{hsv}
+\end{figure}
+
+HSV color model is shown on figure \ref{hsv} where the Hue component describes the color itself in the form of an angle between [0,360] degrees. 0 degree mean red, 120 means green 240 means blue. 60 degrees is yellow, 300 degrees is magenta. The Saturation component signals how much the color is polluted with white color. The range of the S component is [0,1]. Experimentally, it was found by Omar et al. that saturation is high at most of the area as the traffic light body is very good shaped. Choosing the area with the high saturation and high hue values as the area to mask yielded a good result in detecting the traffic light color correctly \cite{c7}. However, using HSV yields a good accuracy but could not recognize and classify the colour of traffic lights from a far distance \cite{c7}.
 
 %%%%%%%%%%%
 
@@ -118,7 +133,7 @@ The tracker part analyses the images captures by the detector, detected candidat
 \begin{figure}[thpb]
 	\centering
 	\includegraphics[scale=0.63]{img/detector_tracker.png}
-	\caption{Detection and tracking of a traffic signal. Source: Frank Lindner. Robust Recognition of Traffic Signals.} 
+	\caption{Detection and tracking of a traffic signal. Source: \cite{c6}}
 	\label{dettrack}
 \end{figure}
 
@@ -156,22 +171,23 @@ THE END
 
 \begin{thebibliography}{99}
 
-\bibitem{c1} Andreas Fregin, Julian M\"uller, Klaus Dietmayer. Three Ways of using Stereo Vision for Traffic Light Recognition \url{https://www.researchgate.net/publication/318810474} date accessed: 07.05.2021
+\bibitem{c1} Andreas Fregin, Julian M\"uller, Klaus Dietmayer. Three Ways of using Stereo Vision for Traffic Light Recognition. \url{https://www.researchgate.net/publication/318810474} date accessed: 07.05.2021
 
-\bibitem{c2} Andreas Fregin, Julian M\"uller, Klaus Dietmayer. Multi-camera system for traffic light detection: About camera setup and mapping of detections \url{https://www.researchgate.net/publication/323792381} date accessed: 12.05.2021
+\bibitem{c2} Andreas Fregin, Julian M\"uller, Klaus Dietmayer. Multi-camera system for traffic light detection: About camera setup and mapping of detections. \url{https://www.researchgate.net/publication/323792381} date accessed: 12.05.2021
 
-\bibitem{c3} Hiroki Moizumi, Yoshihiro Sugaya, Masako Omachi, Shinichiro Omachi. Traffic Light Detection Considering Color Saturation Using In-Vehicle Stereo Camera \url{https://doi.org/10.2197/ipsjjip.24.349} date accessed: 17.05.2021
+\bibitem{c3} Hiroki Moizumi, Yoshihiro Sugaya, Masako Omachi, Shinichiro Omachi. Traffic Light Detection Considering Color Saturation Using In-Vehicle Stereo Camera. \url{https://doi.org/10.2197/ipsjjip.24.349} date accessed: 17.05.2021
 
-\bibitem{c4} Tobias Langner, Daniel Seifert, Bennet Fischer, Daniel Goehring, Tinosch Ganjineh. Traffic Awareness Driver Assistance based on Stereovision,Eye-tracking, and Head-Up Display \url{https://www.drgoehring.de/bib/langner16icra-sst/langner16icra-sst.pdf} date accessed: 19.05.2021
+\bibitem{c4} Tobias Langner, Daniel Seifert, Bennet Fischer, Daniel Goehring, Tinosch Ganjineh. Traffic Awareness Driver Assistance based on Stereovision,Eye-tracking, and Head-Up Display. \url{https://www.drgoehring.de/bib/langner16icra-sst/langner16icra-sst.pdf} date accessed: 19.05.2021
 
 \bibitem{c5}Nathaniel Fairfield, Chris Urmson. Traffic Light Mapping and Detection. \url{https://static.googleusercontent.com/media/research.google.com/de//pubs/archive/37259.pdf} date accessed: 22.05.2021
 
 \bibitem{c6}Frank Lindner, Ulrich Kressel, Stephan Kaelberer. Robust Recognition of Traffic Signals. \url{https://www.researchgate.net/publication/4092560} date accessed: 30.05.2021
 
-\bibitem{c7}Wael Omar, Impyeong Lee, Gyuseok Lee, Kang Min Park. Detection And Localization Of Traffic Lights Using Yolov3 And Stereo Vision \url{https://www.researchgate.net/publication/343746358} date accessed: 02.06.2021
+\bibitem{c7}Wael Omar, Impyeong Lee, Gyuseok Lee, Kang Min Park. Detection And Localization Of Traffic Lights Using Yolov3 And Stereo Vision. \url{https://www.researchgate.net/publication/343746358} date accessed: 02.06.2021
 
-\bibitem{c8}Kento Yabuuchi, Masahiro Hirano, Taku Senoo, Norimasa Kishi. Real-Time Traffic Light Detection with Frequency Patterns Using a High-Speed Camera \url{https://www.researchgate.net/publication/343091935} date accessed: 03.06.2021
+\bibitem{c8}Kento Yabuuchi, Masahiro Hirano, Taku Senoo, Norimasa Kishi. Real-Time Traffic Light Detection with Frequency Patterns Using a High-Speed Camera. \url{https://www.researchgate.net/publication/343091935} date accessed: 03.06.2021
 
+\bibitem{c9}Guo Mu, Zhang Xinyu, Li Deyi. Traffic light detection and recognition for autonomous vehicles. \url{https://www.researchgate.net/publication/274196452} date accessed: 06.06.2021
 
 \end{thebibliography}
 \end{document}
