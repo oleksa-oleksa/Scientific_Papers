@@ -86,7 +86,10 @@ The rapid deployment of the new LED traffic lights has led to a new problem. In 
 
 %%%%%%%%%%
 
-\section{Deep CNN for object detection}
+\section{CNN for object detection}
+Last years the title of the most widely used computational approach in the field of Machine Leaning gradually won Convolutional Neural Networks, thus they are able to achieve outstanding results in complex predictions combining with a speed as an important parameter for real-time object detection and discussion making in fast changing conditions. CNN has features parameter sharing and dimensionality reduction. Because of parameter sharing in CNN, the number of parameters (dimensionality) is reduced thus the  computational power needed also decreased. The main intuition is the learning from one part of the image is also useful in another part of the image. One of the benefits of Deep Learning is the ability to learn massive amounts of data. 
+
+A  popular  CNN  object detector  is  Faster  R-CNN,  which  consists  of  two  CNNs:  the first  one  proposes  input  image  regions  of  interest,  and  the second one refines and classifies those regions \cite{c7}. In  Zuo et al. \cite{c9}, a plain Faster R-CNN was used to detect traffic signs in the research. The  main  idea  of  the  algorithm  is  to  design  the  Region Proposal Network ()RPN)  network  to  extract  the  proposed regions  and  to  generate  the  proposed regions  with  the  convolution  neural  network \cite{c9}. Faster R-CNN  claims to be able achieve  the  world's  advanced  object  detection  which  can  detect  20  types  of  objects  including  humans,  animals,  and  vehicles. Classification  model,  is  publicly  trained  on  the  ImageNet  data  set. Anyway, the experiments by Zuo et al.  concluded that model struggled  with detection because   signs   are commonly a small part of the image, making the detection task more difficult \cite{c7}.
 
 
 \section{Traffic light mapping}
@@ -188,6 +191,8 @@ THE END
 \bibitem{c8}Kento Yabuuchi, Masahiro Hirano, Taku Senoo, Norimasa Kishi. Real-Time Traffic Light Detection with Frequency Patterns Using a High-Speed Camera. \url{https://www.researchgate.net/publication/343091935} date accessed: 03.06.2021
 
 \bibitem{c9}Guo Mu, Zhang Xinyu, Li Deyi. Traffic light detection and recognition for autonomous vehicles. \url{https://www.researchgate.net/publication/274196452} date accessed: 06.06.2021
+
+\bibitem{c9}Linxiu Wu, Houjie Li1, Jianjun He, Xuan Chen. Traffic sign detection method based on Faster R-CNN \url{https://www.researchgate.net/publication/331901926} date accessed: 09.06.2021
 
 \end{thebibliography}
 \end{document}
